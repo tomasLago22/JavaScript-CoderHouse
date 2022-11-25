@@ -186,25 +186,29 @@ const conAlcohol = [
     id:1,
     nombre:"Fernet",
     precio:1500,
-    stock:25
+    stock:25,
+    img: "img/Fernet(22).png"
     },
     {
     id:2,
     nombre:"Smirnoff",
     precio:1200,
-    stock:15
+    stock:15,
+    img: "img/Smirnof (10).png"
     },
     {
     id:3,
     nombre:"Malibu",
     precio:1900,
-    stock:18
+    stock:18,
+    img: "img/Malibu(7).png"
     },
     {
     id:4,
     nombre:"Heineken Pack X6",
     precio:1600,
-    stock:10
+    stock:10,
+    img: "img/pngocean.com (13).png"
     },
 ]
 
@@ -240,99 +244,87 @@ const sinAlcohol = [
 ]
 
 let carrito = [];
+let btnCarrito = document.getElementById("verCarrito")
 
-let carritoDos =[];
+
+document.addEventListener("DOMContentLoaded", () => {
+    let storageCarrito = JSON.parse(localStorage.getItem("productos-en-carrito"));
+    carrito = storageCarrito != null ? storageCarrito : [];
+    cargarConAlcohol();
+    btnCarrito.innerText = `Carrito (${carrito.length})`
+
+ })
 
 
-let contenedorProductos = document.getElementById("contenedorProductos")
+let contenerProdConAlcohol = document.getElementById("contenedorAlcohol");
 
-sinAlcohol.forEach((product)=>{
+function cargarConAlcohol(){
 
-   let contenedor = document.createElement("div")
-    contenedor.className= "contenedor"
-    
-    contenedor.innerHTML = `
-    <h3>${product.nombre} </h3>
-    <p>${product.precio} </p>
-    `;
+    contenerProdConAlcohol.innerHTML = "";
 
-    contenedorProductos.append(contenedor)
-    
+    conAlcohol.forEach((producto)=>{
 
-let comprar = document.createElement("button")
-comprar.innerText = "Comprar"
-
-contenedor.append(comprar)
-
-comprar.addEventListener("click",()=>{
-    
-    carrito.push(
+        contenerProdConAlcohol.innerHTML += `
+        <div class="col-3">
+            <div class="card productCard">
+              <img src="${producto.img}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">${producto.nombre}</h5>
+                <p class="card-text">$${producto.precio}</p>
+                <a href="#" id="${producto.id}" class="btn btn-primary btn2">Comprar</a>
+              </div>
+            </div>
+          </div>
         
-        {
-          id: product.id,
-          nombre: product.nombre,
-          precio: product.precio,
-          stock: product.stock
-        }
-      )
-      console.log(carrito)
+        `
+
+
+
+    
+    })
+
+    let comprarBtn = document.querySelectorAll(".btn2");
+console.log(comprarBtn)
+
+comprarBtn.forEach((btn)=>{
+    btn.addEventListener("click", (e)=>{
+        comprarProducto(e.currentTarget.id);
     })
 })
 
+}
 
- comprarDos = document.getElementsByClassName(".swal2-confirm swal2-style")
+cargarConAlcohol();
 
 
-comprarDos.setAttribute("id" , "idPrueba")
 
-comprarDos.addEventListener("click",()=>{
-    
+
+function comprarProducto(id){
+
+    const idProducto = parseInt(id);
+    const producto = conAlcohol.find(pr => pr.id === idProducto);
+
+
     carrito.push(
         
         {
-          id: product.id,
-          nombre: product.nombre,
-          precio: product.precio,
-          stock: product.stock
+          id: producto.id,
+          nombre: producto.nombre,
+          precio: producto.precio,
+          stock: producto.stock
         }
       )
-      console.log(carrito)
-    })
 
+    console.log(`Agregaste: ${producto.nombre} a tu carro de compras!`)
 
+    btnCarrito.textContent = `Carrito (${carrito.length})`
 
-
-
-
-
-
-
-let btn2 = document.getElementById( "#btn2");
-
-let todos = document.querySelectorAll("#btn2");
-    
-    
-
-todos.forEach((todo)=>{
-    todo.addEventListener('click',llamarBoton2);
-
-function llamarBoton2(){
-    Swal.fire({
-        title: "Confirmar Compra",
-        text: "Desas sumar al carrito?",
-        icon: "success",
-        showConfirmButton: true,
-        showCancelButton: true,
-        cancelButtonText: 'Cancelar',
-        confirmButtonText:"Confirmar",
-        
-        
-    })
+    localStorage.setItem("productos-en-carrito", JSON.stringify(carrito));
 }
-    
-});
 
 
-//STORAGE
-
-
+function vaciarCarrito(){
+  
+  carrito.length = 0;
+  localStorage.setItem('productos-en-carrito',JSON.stringify(carrito));
+}
