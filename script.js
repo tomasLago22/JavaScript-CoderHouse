@@ -284,7 +284,7 @@ function cargarConAlcohol(){
     })
 
     let comprarBtn = document.querySelectorAll(".btn2");
-console.log(comprarBtn)
+
 
 comprarBtn.forEach((btn)=>{
     btn.addEventListener("click", (e)=>{
@@ -323,8 +323,27 @@ function comprarProducto(id){
 }
 
 
-function vaciarCarrito(){
+const contenedorCarrito = document.getElementById("contentCarrito")
+
+function carritoCompleto(){
+
+contenedorCarrito.innerHTML=""
+carrito.forEach((producto)=>{
+let carritoContenido = document.createElement("div")
+carritoContenido.className="card"
+carritoContenido.style.width = "10%"
+ 
+carritoContenido.innerHTML=`
+<img src="${producto.img}"/>
+<h3>${producto.nombre}</h3>
+<p>${producto.precio}<p>
+<button class="delete-producto btn btn-danger">Eliminar</button>
+`;
+
+contenedorCarrito.append(carritoContenido)
+})
   
-  carrito.length = 0;
-  localStorage.setItem('productos-en-carrito',JSON.stringify(carrito));
+  
 }
+
+carritoCompleto()
