@@ -392,15 +392,19 @@ contenedorCarrito.append(carritoContenido)
 
 btnCarrito.addEventListener("click", carritoCompleto)
 
+
+
+  const borrarProducto=(id)=>{
+  
+    console.log("eliminado")
+    const foundId = carrito.find((element)=>element.id===id)
+    console.log(foundId)
+    carrito = carrito.filter((carritoId)=>{
+      return carritoId != foundId;
+    })
+    carritoCompleto()
+  }
+
+
+
  
- const borrarProducto = (id) =>{
-
-let indexProd = carritoContenido.findIndex((producto) => producto.id ===id);
-
-carritoContenido.splice(indexProd, 1);
-
-carritoCompleto()
-
-
-
- }
