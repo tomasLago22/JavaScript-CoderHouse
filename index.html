@@ -27,8 +27,6 @@
         </div>
       </nav>
 
-      <input type="text" class="form-control" id="description-form" placeholder="Nombre">
-      <input type="number" class="form-control" id="description-form" placeholder="Edad"> <button class="btn" id="crear"> Buscar</button>
       
       <div class="container">
         <div id="contenedorAlcohol" class="row justify-content-between gap-5"> 
@@ -42,14 +40,28 @@
       <!-- CONTENEDOR -->
 
       <div id="contentCarrito" class="card-group">
-
+        
         
       </div>
 
-      
-    
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <section id="contenidoApi" class="apiContenido"> 
 
-      <script src="script.js"></script>
+        <div class="col">
+          <h2 id="titulo"></h2>
+          <ul id="lista-productos">
+            <!-- JS -->
+          </ul>
+
+        </div>
+
+      </section>
+    
+      
+
+      <script src="./js/script.js"></script>
+      
+  
+      <script src="./js/productos.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
